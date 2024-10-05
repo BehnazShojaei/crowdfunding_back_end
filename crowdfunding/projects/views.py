@@ -4,7 +4,8 @@ from rest_framework import status
 from django.http import Http404
 
 from .models import Project, Pledge
-from .serializers import ProjectSerializer, PledgeSerializer
+from .serializers import ProjectSerializer, PledgeSerializer, ProjectDetailSerializer
+
 class ProjectList(APIView):
 
    def get(self, request):
@@ -34,20 +35,21 @@ class ProjectDetail(APIView):
 
    def get(self, request, pk):
        project = self.get_object(pk)
-       serializer = ProjectSerializer(project)
+       serializer = ProjectDetailSerializer(project)
+
        return Response(serializer.data)
    
 class PledgeList(APIView):
 
    def get(self, request):
        pledges = Pledge.objects.all()
-       serializer = PledgeSerializer(pledges, many=True)
+       serializer = ProjectDetail(project)       
        return Response(serializer.data)
 
    def post(self, request):
        serializer = PledgeSerializer(data=request.data)
        if serializer.is_valid():
-           serializer.save()
+           serializer.save(owner=request.user)
            return Response(
                serializer.data,
                status=status.HTTP_201_CREATED
