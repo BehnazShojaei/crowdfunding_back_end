@@ -8,12 +8,12 @@ from .serializers import ProjectSerializer, PledgeSerializer, ProjectDetailSeria
 
 class ProjectList(APIView):
 
-   def get(self, request):
+    def get(self, request):
        projects = Project.objects.all()
        serializer = ProjectSerializer(projects, many=True)
        return Response(serializer.data)
    
-def post(self, request):
+    def post(self, request):
        serializer = ProjectSerializer(data=request.data)
        if serializer.is_valid():
            serializer.save()
@@ -24,7 +24,9 @@ def post(self, request):
        return Response(
            serializer.errors,
            status=status.HTTP_400_BAD_REQUEST
-       )
+           )
+   
+
 class ProjectDetail(APIView):
    def get_object(self, pk):
        try:
