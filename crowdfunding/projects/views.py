@@ -2,7 +2,6 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
-
 from .models import Project, Pledge
 from .serializers import ProjectSerializer, PledgeSerializer, ProjectDetailSerializer
 
@@ -26,6 +25,7 @@ class ProjectList(APIView):
            status=status.HTTP_400_BAD_REQUEST
            )
    
+
 
 class ProjectDetail(APIView):
    def get_object(self, pk):
