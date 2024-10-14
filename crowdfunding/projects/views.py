@@ -78,21 +78,18 @@ class ProjectDetail(APIView):
     #def delete
    
 class PledgeList(APIView):
-   
+    
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     
-    #check it here if it is for projectlist
-
-
     def get(self, request):
        pledges = Pledge.objects.all()
-       serializer = PledgeDetailSerializer(pledges)       
+       serializer = PledgeSerializer(pledges,  many=True)
        return Response(serializer.data)
 
     def post(self, request):
        serializer = PledgeSerializer(data=request.data)
        if serializer.is_valid():
-           serializer.save(supporter=request.user)
+           serializer.save()
            return Response(
                serializer.data,
                status=status.HTTP_201_CREATED
@@ -101,7 +98,26 @@ class PledgeList(APIView):
            serializer.errors,
            status=status.HTTP_400_BAD_REQUEST
        )
+
+#check if i need to have pledge detail serializer and if i need to change anything the code above is from content model relations 4- , the code below I have no idea where it is from! 
+
+    # def get(self, request):
+    #    pledges = Pledge.objects.all()
+    #    serializer = PledgeDetailSerializer(pledges)       
+    #    return Response(serializer.data)
+    # def post(self, request):
+    #    serializer = PledgeSerializer(data=request.data)
+    #    if serializer.is_valid():
+    #        serializer.save(supporter=request.user)
+    #        return Response(
+    #            serializer.data,
+    #            status=status.HTTP_201_CREATED
+    #        )
+    #    return Response(
+    #        serializer.errors,
+    #        status=status.HTTP_400_BAD_REQUEST
+    #    )
     def put(self, request): 
         serializer = PledgeSerializer(data=request.data)
-
-
+    
+    
