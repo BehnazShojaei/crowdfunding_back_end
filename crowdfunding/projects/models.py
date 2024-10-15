@@ -31,3 +31,4 @@ class Pledge(models.Model):
         on_delete=models.CASCADE,
         related_name='pledges'
     )
+    #I can add the above supporter as supporter_private and add a supporter_public 
