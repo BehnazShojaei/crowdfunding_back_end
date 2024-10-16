@@ -22,12 +22,28 @@ class PledgeSerializer(serializers.ModelSerializer):
         
 
 class PledgeDetailSerializer(PledgeSerializer):
-  
-  
+    
+    
+    # def update(self, instance, validated_data):
+    #     # Ensure the project is being updated (if provided in the request)
+    #     if 'project' in validated_data:
+    #         # Validate and set the project
+    #         project = validated_data.get('project')
+    #         if not apps.get_model('projects.Project').objects.filter(id=project.id).exists():
+    #             raise serializers.ValidationError("The selected project does not exist.")
+    #         instance.project = project
+
+    #     instance.amount = validated_data.get('amount', instance.amount)
+    #     instance.comment = validated_data.get('comment', instance.comment)
+    #     instance.anonymous = validated_data.get('anonymous', instance.anonymous)
+    #     instance.save()
+    #     return instance
+
   def update(self, instance, validated_data):
        instance.amount = validated_data.get('amount', instance.amount)
        instance.comment = validated_data.get('comment', instance.comment)
        instance.anonymous = validated_data.get('anonymous', instance.anonymous)
+       instance.project = validated_data.get('project', instance.project)
     #    instance.date_created = validated_data.get('date_created', instance.date_created)
     #    instance.owner = validated_data.get('owner', instance.owner)
        instance.save()

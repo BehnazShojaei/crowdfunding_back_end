@@ -148,15 +148,23 @@ class PledgeDetail(APIView):
         return Response(serializer.data)
     
 
-    def put(self, request, pk):
-        pledge = self.get_object(pk)
-        serializer = PledgeSerializer(pledge, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    # def put(self, request, pk):
+    #     pledge = self.get_object(pk)
+    #     serializer = PledgeSerializer(pledge, data=request.data, partial=True)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data)
+    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
+    def put(self, request, pk):
+        pledge = self.get_object(pk)
+        serializer = PledgeDetailSerializer(pledge, data=request.data, partial=True)
+        
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)  # This should return a Response object
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)  # And this as well
 
 class UserProfileView(RetrieveAPIView):
     queryset = get_user_model().objects.all()
