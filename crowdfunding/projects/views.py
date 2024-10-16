@@ -40,6 +40,7 @@ class ProjectDetail(APIView):
       IsOwnerOrReadOnly
       ]
     
+    
     def get_object(self, pk):
        
        try:
