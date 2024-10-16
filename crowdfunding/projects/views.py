@@ -5,7 +5,12 @@ from .permissions import IsOwnerOrReadOnly
 
 from django.http import Http404
 from .models import Project, Pledge
-from .serializers import PledgeDetailSerializer, ProjectSerializer, PledgeSerializer, ProjectDetailSerializer
+from .serializers import PledgeDetailSerializer, ProjectSerializer, PledgeSerializer, ProjectDetailSerializer , UserProfileSerializer
+from django.contrib.auth import get_user_model
+# I added this below and also userprofileserializer
+from rest_framework.generics import RetrieveAPIView
+
+
 
 class ProjectList(APIView):
 
@@ -29,6 +34,7 @@ class ProjectList(APIView):
            serializer.errors,
            status=status.HTTP_400_BAD_REQUEST
            )
+#   how about showing project list only by name? owner?
    
 
 
@@ -121,4 +127,41 @@ class PledgeList(APIView):
     def put(self, request): 
         serializer = PledgeSerializer(data=request.data)
     
+    #define a pledgedetail include permission on it
+
+class PledgeDetail(APIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly , IsOwnerOrReadOnly
+]
+
+    def get_object(self, pk):
+        try:
+            pledge = Pledge.objects.get(pk=pk)
+            self.check_object_permissions(self.request, pledge)
+
+            return pledge
+        except Pledge.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk):
+        pledge = self.get_object(pk)
+        serializer = PledgeSerializer(pledge)
+        return Response(serializer.data)
     
+
+    def put(self, request, pk):
+        pledge = self.get_object(pk)
+        serializer = PledgeSerializer(pledge, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+
+class UserProfileView(RetrieveAPIView):
+    queryset = get_user_model().objects.all()
+    serializer_class = UserProfileSerializer
+    permission_classes = [permissions.IsAuthenticated]  
+
+    def get_object(self):
+        return self.request.user

@@ -1,29 +1,39 @@
 from rest_framework import serializers
 from django.apps import apps
+from django.contrib.auth import get_user_model
+
 
 class PledgeSerializer(serializers.ModelSerializer):
     
 
     supporter = serializers.ReadOnlyField(source='supporter.id')
+    # supporter = serializers.SerializerMethodField()  # Use SerializerMethodField for custom logic
 
     class Meta:
         model = apps.get_model('projects.Pledge')
         fields = '__all__'
+
+    def get_supporter(self, obj):
+        if obj.anonymous:
+            return "Anonymous"
+        return obj.supporter.username
+    # ask if it is the right place to add logic checking anonymous?
+
         
 
 class PledgeDetailSerializer(PledgeSerializer):
   
   
   def update(self, instance, validated_data):
-       instance.title = validated_data.get('title', instance.title)
-       instance.description = validated_data.get('description', instance.description)
-       instance.goal = validated_data.get('goal', instance.goal)
-       instance.image = validated_data.get('image', instance.image)
-       instance.is_open = validated_data.get('is_open', instance.is_open)
-       instance.date_created = validated_data.get('date_created', instance.date_created)
-       instance.owner = validated_data.get('owner', instance.owner)
+       instance.amount = validated_data.get('amount', instance.amount)
+       instance.comment = validated_data.get('comment', instance.comment)
+       instance.anonymous = validated_data.get('anonymous', instance.anonymous)
+    #    instance.date_created = validated_data.get('date_created', instance.date_created)
+    #    instance.owner = validated_data.get('owner', instance.owner)
        instance.save()
        return instance
+#   should i add update for project as well?
+
 
 
 # The ModelSerializer class already knows how to convert a model instance into JSON!
@@ -46,8 +56,19 @@ class ProjectDetailSerializer(ProjectSerializer):
        instance.image = validated_data.get('image', instance.image)
        instance.is_open = validated_data.get('is_open', instance.is_open)
        instance.date_created = validated_data.get('date_created', instance.date_created)
-       instance.owner = validated_data.get('owner', instance.owner)
+    #    instance.owner = validated_data.get('owner', instance.owner)
+       instance.completed = validated_data.get('completed', instance.completed)
+
        instance.save()
        return instance
    
+#    is't it silly to have the ability to change the owner on update?!!!! 
+   
 
+class UserProfileSerializer(serializers.ModelSerializer):
+    owned_projects = ProjectSerializer(many=True, read_only=True)
+    pledges = PledgeSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = get_user_model()
+        fields = ['id', 'username', 'owned_projects', 'pledges']
