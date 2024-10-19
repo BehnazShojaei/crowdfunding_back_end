@@ -1,12 +1,12 @@
 # Crowdfunding Back End
-{{ your name here }}
+{{ Drops2Ocean }}
 
 ## Planning:
 ### Concept/Name
-{{ Include a short description of your website concept here. }}
+{{ Help people to be employable! }}
 
 ### Intended Audience/User Stories
-{{ Who are your intended audience? How will they use the website? }}
+{{ Anyone who is looking to gain new skills and need support in both learning and networking journey is welcomed here! }}
 
 ### Front End Pages/Functionality
 - {{ A page on the front end }}

@@ -9,3 +9,11 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return CustomUser.objects.create_user(**validated_data)
+    
+    # class UserProfileSerializer(serializers.ModelSerializer):
+    # owned_projects = ProjectSerializer(many=True, read_only=True)
+    # pledges = PledgeSerializer(many=True, read_only=True)
+
+    # class Meta:
+    #     model = get_user_model()
+    #     fields = ['id', 'username', 'owned_projects', 'pledges']
