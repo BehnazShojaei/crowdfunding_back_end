@@ -57,7 +57,7 @@ You can view the Entity Relationship Diagram [here]( https://viewer.diagrams.net
 ### Your crowdfunding project must:
 
 
- - [] Be separated into two distinct projects: an API built using the Django Rest Framework and a website built using React.
+ - [ ] Be separated into two distinct projects: an API built using the Django Rest Framework and a website built using React.
  - [x] Have a cool name, bonus points if it includes a pun and/or missing vowels. See https://namelix.com/ for inspiration. (Bonus Points are meaningless)
  - [x] Have a clear target audience.
  - [x] Have user accounts. A user should have at least the following attributes:
