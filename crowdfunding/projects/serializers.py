@@ -7,7 +7,6 @@ class PledgeSerializer(serializers.ModelSerializer):
     
 
     supporter = serializers.ReadOnlyField(source='supporter.id')
-    # supporter = serializers.SerializerMethodField()  # Use SerializerMethodField for custom logic
 
     class Meta:
         model = apps.get_model('projects.Pledge')
@@ -43,7 +42,7 @@ class PledgeDetailSerializer(PledgeSerializer):
        instance.amount = validated_data.get('amount', instance.amount)
        instance.comment = validated_data.get('comment', instance.comment)
        instance.anonymous = validated_data.get('anonymous', instance.anonymous)
-       instance.project = validated_data.get('project', instance.project)
+    #    instance.project = validated_data.get('project', instance.project)
     #    instance.date_created = validated_data.get('date_created', instance.date_created)
     #    instance.owner = validated_data.get('owner', instance.owner)
        instance.save()
@@ -72,11 +71,16 @@ class ProjectDetailSerializer(ProjectSerializer):
        instance.image = validated_data.get('image', instance.image)
        instance.is_open = validated_data.get('is_open', instance.is_open)
        instance.date_created = validated_data.get('date_created', instance.date_created)
-    #    instance.owner = validated_data.get('owner', instance.owner)
        instance.completed = validated_data.get('completed', instance.completed)
 
+    #    in real life a user would not need to change the owner! however in insomnia I had this option activated when puplating data
+    #  instance.owner = validated_data.get('owner', instance.owner)
+    
        instance.save()
        return instance
+   
+
+
    
 #    is't it silly to have the ability to change the owner on update?!!!! 
    

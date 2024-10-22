@@ -9,11 +9,23 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return CustomUser.objects.create_user(**validated_data)
-    
-    # class UserProfileSerializer(serializers.ModelSerializer):
-    # owned_projects = ProjectSerializer(many=True, read_only=True)
-    # pledges = PledgeSerializer(many=True, read_only=True)
 
-    # class Meta:
-    #     model = get_user_model()
-    #     fields = ['id', 'username', 'owned_projects', 'pledges']
+
+    # def create(self, validated_data):
+    #     user = CustomUser(
+    #         email=validated_data['email'],
+    #         username=validated_data['username']
+    #     )
+    #     user.set_password(validated_data['password'])
+    #     user.save()
+    #     return user
+
+        
+# class ChangePasswordSerializer(serializers.Serializer):
+#     model = CustomUser
+
+#     """
+#     Serializer for password change endpoint.
+#     """
+#     old_password = serializers.CharField(required=True)
+#     new_password = serializers.CharField(required=True)

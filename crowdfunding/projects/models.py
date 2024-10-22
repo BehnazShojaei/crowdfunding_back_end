@@ -11,6 +11,8 @@ class Project(models.Model):
     image = models.URLField()
     is_open = models.BooleanField()
     date_created = models.DateTimeField(auto_now_add=True)
+    
+    # Relationship between user and projects, as each user can make many projects, the related name will be in user table as a property
     owner = models.ForeignKey(
         get_user_model(),
         on_delete=models.CASCADE,
@@ -19,16 +21,28 @@ class Project(models.Model):
     completed = models.BooleanField(default=False)  
 
     # how to close the pledge where to add the logic to check this?
-    @property
-    def total_amount(self):
-        return self.pledges.aggregate(sum=models.Sum('amount'))['sum'] or 0
-    # 0 to replace None when there's no pledges
+    # @property
+    # def total_amount(self):
+    #     return self.pledges.aggregate(sum=models.Sum('amount'))['sum'] or 0
+    # # 0 to replace None when there's no pledges
 
+    # @property
+    # def total_amount(self):
+    #     total = self.pledges.aggregate(sum=models.Sum('amount'))['sum'] or 0
+    #     print(f'Total amount pledged: {total}')
+    #     return total
+
+
+    # def close_if_goal_met(self):
+    #     if self.total_amount >= self.goal:
+    #         self.is_open = False
+    #         self.save()
+        
     def close_if_goal_met(self):
-        if self.total_amount >= self.goal:
+        if self.is_open and self.total_amount >= self.goal:
+            print(f'Closing project {self.title} as total amount {self.total_amount} has met or exceeded the goal {self.goal}.')
             self.is_open = False
             self.save()
-
    
 class Pledge(models.Model):
     amount = models.IntegerField()
@@ -40,6 +54,7 @@ class Pledge(models.Model):
         on_delete=models.CASCADE,
         related_name='pledges'
         )
+    # Relationship between user and pledges, as each user can make many pledges, the related name will be in user table as a property
     supporter = models.ForeignKey(
         get_user_model(),
         on_delete=models.CASCADE,

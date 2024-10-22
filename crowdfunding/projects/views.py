@@ -94,17 +94,42 @@ class PledgeList(APIView):
        return Response(serializer.data)
 
     def post(self, request):
-       serializer = PledgeSerializer(data=request.data)
-       if serializer.is_valid():
-           serializer.save(supporter=request.user)
-           return Response(
-               serializer.data,
-               status=status.HTTP_201_CREATED
-           )
-       return Response(
-           serializer.errors,
-           status=status.HTTP_400_BAD_REQUEST
-       )
+        serializer = PledgeSerializer(data=request.data)
+        if serializer.is_valid():
+            project_id = request.data.get('project')
+            print(project_id)
+            # 1. retrieve the amount to all pledges according project id
+            pledges = Pledge.objects.all(project_id)
+            print(pledges)
+
+            total_pledge_amount = pledges.aggregate
+
+            print(total_pledge_amount)
+            # 2. check if total_pledge_amount >= project.goal
+            
+            # 3. if condition is met project.is_open = False otherwise project.is_open = True
+
+            # 4. save the project and pledge 
+            pledge = serializer.save(supporter=request.user)
+            project = pledge.project
+            project.close_if_goal_met()
+
+            return Response(
+                serializer.data,
+                status=status.HTTP_201_CREATED
+            )
+       
+        return Response(
+            serializer.errors,
+            status=status.HTTP_400_BAD_REQUEST
+
+            #    should i modify the error to two ?
+        )
+    
+
+
+    
+    
 
 #check if i need to have pledge detail serializer and if i need to change anything the code above is from content model relations 4- , the code below I have no idea where it is from! 
 
@@ -132,9 +157,12 @@ class PledgeList(APIView):
 class PledgeDetail(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly , IsOwnerOrReadOnly
 ]
+    
 
     def get_object(self, pk):
+        
         try:
+        
             pledge = Pledge.objects.get(pk=pk)
             self.check_object_permissions(self.request, pledge)
 
@@ -146,6 +174,10 @@ class PledgeDetail(APIView):
         pledge = self.get_object(pk)
         serializer = PledgeSerializer(pledge)
         return Response(serializer.data)
+    
+
+
+
     
 
     # def put(self, request, pk):
