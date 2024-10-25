@@ -1,14 +1,17 @@
 # Crowdfunding Back End with Django Rest Framework Project:
 
 ## Planning:
-
-### Concept/Name
-  Help people to be employable!  / Drops2Ocean  
+### Name: 
+Drops2Ocean
+### Concept:
+  Help people to be employable!  
 
 ### Intended Audience/User Stories
   This platform is for anyone seeking support in gaining new skills and advancing their learning and networking journey. We provide assistance in securing premium memberships to online learning platforms like LinkedIn Premium and Udemy, help with attending networking events, preparing resumes, and even getting dressed for interviews! Whether you're looking to upgrade your skillset or make valuable connections, Drops2Ocean is here to support you every step of the way.
  
 <a name="checklist"></a>
+
+### Check List:
 
 - [ ] A link to the deployed project.
 
