@@ -27,19 +27,19 @@ It can be helpful to keep the markdown preview open in VS Code so that you can s
 
 | URL                        | HTTP Method | Purpose                               | Request Body  | Success Response Code | Authentication/Authorization               |
 |----------------------------|-------------|---------------------------------------|---------------|-----------------------|--------------------------------------------|
-| `/projects/`                | GET         | Returns all projects                  | N/A           | 200                   | N/A                                        |
-| `/projects/`                | POST        | Create a new project                  | Project object| 201                   | Must be logged in                          |
-| `/projects/<int:pk>/`       | GET         | Returns project with ID of `<int:pk>` | N/A           | 200                   | N/A                                        |
-| `/projects/<int:pk>/`       | PUT         | Updates the project with ID `<int:pk>`| Project object| 200                   | Must be logged in, must be project owner   |
-| `/pledges/`                 | POST        | Create a new pledge                   | Pledge object | 201                   | Must be logged in                          |
-| `/pledges/<int:pk>/`        | GET         | Get pledge with ID `<int:pk>`         | N/A           | 200                   | N/A                                        |
-| `/pledges/<int:pk>/`        | PUT         | Updates the pledge with ID `<int:pk>` | Pledge object | 200                   | Must be logged in, must be pledge owner    |
-| `/users/`                   | GET         | Returns all users                     | N/A           | 200                   | N/A                                        |
-| `/users/`                   | POST        | Create a new user                     | User object   | 201                   | N/A                                        |
-| `/users/<int:pk>/`          | GET         | Get user with ID `<int:pk>`           | N/A           | 200                   | Must be logged in, must be the user with ID |
-| `/profile/`                 | GET         | Get the profile of the logged-in user | N/A           | 200                   | Must be logged in                          |
-| `/api-token-auth/`          | POST        | Obtain authentication token           | User credentials | 200                 | N/A                                        |
-
+| /projects/                | GET         | Returns all projects                  | N/A           | 200                   | N/A                                        |
+| /projects/                | POST        | Create a new project                  | Project object| 201                   | Must be logged in                          |
+| /projects/<int:pk>/       | GET         | Returns project with ID of <int:pk> | N/A           | 200                   | N/A                                        |
+| /projects/<int:pk>/       | PUT         | Updates the project with ID <int:pk> | Project object| 200                   | Must be logged in, must be project owner   |
+| /pledges/                 | GET         | Returns all pledges                   | N/A           | 200                   | N/A                                        |
+| /pledges/                 | POST        | Create a new pledge                   | Pledge object | 201                   | Must be logged in, must not be the owner of the project |
+| /pledges/<int:pk>/        | GET         | Get pledge with ID <int:pk>         | N/A           | 200                   | N/A                                        |
+| /pledges/<int:pk>/        | PUT         | Updates the pledge with ID <int:pk> | Pledge object | 200                   | Must be logged in, must be the pledge owner |
+| /users/                   | GET         | Returns all users                     | N/A           | 200                   | N/A                                        |
+| /users/                   | POST        | Create a new user                     | User object   | 201                   | N/A                                        |
+| /users/<int:pk>/          | GET         | Get user with ID <int:pk>           | N/A           | 200                   | Must be logged in, must be the user with ID |
+| /profile/                 | GET         | Get the profile of the logged-in user | N/A           | 200                   | Must be logged in                          |
+| /api-token-auth/          | POST        | Obtain authentication token           | User credentials | 200                 | N/A                                        |
 
 
 ### DB Schema
