@@ -1,7 +1,7 @@
-# Crowdfunding Back End
-  
+# Crowdfunding Back End with Django Rest Framework Project:
 
 ## Planning:
+
 ### Concept/Name
   Help people to be employable!  / Drops2Ocean  
 
@@ -87,3 +87,96 @@ Login, POST to api-token-auth endpoint:
 <a name="login-token-image"></a>
 ![Login a user](screenshots/2-4-login-with-token.png)
 
+
+
+### 1. **Register a New User**
+
+- **Description:** This endpoint registers a new user. You need to provide a unique `username`, a valid `email`, and a `password`.
+- **Endpoint:** `POST /users/`
+- **Body Data:**
+    
+    ```json
+    json
+    Copy code
+    {
+      "username": "new_user",
+      "email": "new_user@example.com",
+      "password": "secure_password123"
+    }
+    
+    ```
+    
+- **Success Response:** `201 Created`
+
+### 2. **Log in and Obtain Token**
+
+- **Description:** This step logs in the user and returns an authentication token. You will use this token in the header for authenticated requests.
+- **Endpoint:** `POST /api-token-auth/`
+- **Body Data:**
+    
+    ```json
+    json
+    Copy code
+    {
+      "username": "new_user",
+      "password": "secure_password123"
+    }
+    
+    ```
+    
+- **Success Response:** `200 OK`
+
+- **Example Token Response:**
+    
+    ```json
+    json
+    Copy code
+    {
+      "token": "your_auth_token_here"
+    }
+    
+    ```
+    
+
+### 3. **Create a New Project**
+
+- **Description:** This endpoint creates a new project. The project requires a `title`, `description`, `goal` (e.g., in dollars), and a boolean `is_open` field to indicate if the project is accepting pledges.
+- **Endpoint:** `POST /projects/`
+- **Headers:**
+    
+    ```makefile
+    makefile
+    Copy code
+    Authorization: Token your_auth_token_here
+    
+    ```
+    
+- **Body Data:**
+    
+    ```json
+    json
+    Copy code
+    {
+      "title": "Learn Data Science",
+      "description": "A project to help people access premium memberships for data science courses.",
+      "goal": 500,
+      "is_open": true}
+    
+    ```
+    
+- **Success Response:** `201 Created`
+
+### 4. **Get All Projects**
+
+- **Endpoint:** `GET /projects/`
+- **Headers (optional):**
+    
+    ```makefile
+    makefile
+    Copy code
+    Authorization: Token your_auth_token_here
+    
+    ```
+    
+- **Success Response:** `200 OK`
+- **Description:** This endpoint retrieves all projects, optionally including authorization if necessary.

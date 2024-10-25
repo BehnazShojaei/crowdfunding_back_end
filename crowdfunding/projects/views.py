@@ -113,16 +113,6 @@ class ProjectDetail(APIView):
 # there's some logic check to see if the project goal is met project don't accept new pledges, if the latest supporter is exceeding the amount for the goal in the last pledge it will be prompted by the right amount, it could be addressed later in REACT but just wanted to apply complex logic in API.
 
 
-class PledgeList(APIView):
-    
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    
-    def get(self, request):
-       pledges = Pledge.objects.all()
-       serializer = PledgeSerializer(pledges,  many=True)
-       return Response(serializer.data)
-
-
 
 class PledgeList(APIView):
     
