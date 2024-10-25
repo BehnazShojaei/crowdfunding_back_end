@@ -51,20 +51,39 @@ You can view the Entity Relationship Diagram [here]( https://viewer.diagrams.net
 
 
 ### GET method for all endpoints
-
+GET all projects:
 ![GET all projects](screenshots/1-1-get-all-projects.png)
+
+GET project by id:
 ![GET project by id](screenshots/1-2-get-project-by-id.png)
+
+GET all pledges:
 ![GET all pledges](screenshots/1-3-get-all-pledges.png)
+
+GET pledge by id:
 ![GET pledge by id](screenshots/1-4-get-pledge-by-id.png)
+
+GET all users
 ![GET all users](screenshots/1-5-get-all-users.png)
+
+GET user by id:
 ![GET user by id](screenshots/1-6-get-user-by-id.png)
+
+GET user profile:
 ![GET user profile](screenshots/1-7-get-user-profile.png)
 
 ### POST method for all endpoints
 
+Create project, POST to projects endpoint:
 ![Create a project](screenshots/2-1-create-project.png)
+
+Create user, POST to users endpoint:
 ![Create a user](screenshots/2-2-create-user.png)
+
+Make a pledge, POST to pledges endpoint:
 ![Make a pledge](screenshots/2-3-make-a-pledge.png)
+
+Login, POST to api-token-auth endpoint:
 <a name="login-token-image"></a>
 ![Login a user](screenshots/2-4-login-with-token.png)
 
