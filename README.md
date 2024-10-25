@@ -13,7 +13,7 @@
 - [ ] A link to the deployed project.
 - [X] A screenshot of Insomnia, demonstrating a successful GET method for any endpoint.
 
-[screenshots - GET for all endpoints] (#GET_method_for_all_endpoints)
+[screenshots - GET for all endpoints](#get-method-for-all-endpoints)
 
 
 - [ ] A screenshot of Insomnia, demonstrating a successful POST method for any endpoint.
@@ -49,11 +49,11 @@ You can view the Entity Relationship Diagram [here]( https://viewer.diagrams.net
 
 ### GET method for all endpoints
 
-![GET all projects] (screenshots/1-1-GET all Projects.png)
-![GET project by id] (screenshots/1-2- GET project by id .png)
-![GET all pledges] (screenshots/1-3- GET all pledges.png)
-![GET pledge by id] (screenshots/1-4- GET pledge by id .png)
-![GET all users] (screenshots/1-5- GET all users.png)
-![GET user by id] (screenshots/1-6- GET user by id .png)
-![GET user profile] (screenshots/1-7- GET user profile .png)
 
+![GET all projects](screenshots/1-1-GET_all_Projects.png)
+![GET project by id](screenshots/1-2-GET_project_by_id.png)
+![GET all pledges](screenshots/1-3-GET_all_pledges.png)
+![GET pledge by id](screenshots/1-4-GET_pledge_by_id.png)
+![GET all users](screenshots/1-5-GET_all_users.png)
+![GET user by id](screenshots/1-6-GET_user_by_id.png)
+![GET user profile](screenshots/1-7-GET_user_profile.png)
