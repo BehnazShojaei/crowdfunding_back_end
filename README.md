@@ -11,13 +11,16 @@
 
 
 - [ ] A link to the deployed project.
+
 - [X] A screenshot of Insomnia, demonstrating a successful GET method for any endpoint.
+      [screenshots - GET for all endpoints](#get-method-for-all-endpoints)
 
-[screenshots - GET for all endpoints](#get-method-for-all-endpoints)
+- [X] A screenshot of Insomnia, demonstrating a successful POST method for any endpoint.
+      [screenshots - POST for all endpoints](#post-method-for-all-endpoints)
 
+- [X] A screenshot of Insomnia, demonstrating a token being returned. [See the login token image](#login-token-image)
 
-- [ ] A screenshot of Insomnia, demonstrating a successful POST method for any endpoint.
-- [ ] A screenshot of Insomnia, demonstrating a token being returned.
+      
 - [ ] Step by step instructions for how to register a new user and create a new project (i.e. endpoints and body data).
 - [X] Your refined API specification and Database Schema.
 
@@ -49,11 +52,19 @@ You can view the Entity Relationship Diagram [here]( https://viewer.diagrams.net
 
 ### GET method for all endpoints
 
+![GET all projects](screenshots/1-1-get-all-projects.png)
+![GET project by id](screenshots/1-2-get-project-by-id.png)
+![GET all pledges](screenshots/1-3-get-all-pledges.png)
+![GET pledge by id](screenshots/1-4-get-pledge-by-id.png)
+![GET all users](screenshots/1-5-get-all-users.png)
+![GET user by id](screenshots/1-6-get-user-by-id.png)
+![GET user profile](screenshots/1-7-get-user-profile.png)
 
-![GET all projects](screenshots/1-1-GET_all_Projects.png)
-![GET project by id](screenshots/1-2-GET_project_by_id.png)
-![GET all pledges](screenshots/1-3-GET_all_pledges.png)
-![GET pledge by id](screenshots/1-4-GET_pledge_by_id.png)
-![GET all users](screenshots/1-5-GET_all_users.png)
-![GET user by id](screenshots/1-6-GET_user_by_id.png)
-![GET user profile](screenshots/1-7-GET_user_profile.png)
+### POST method for all endpoints
+
+![Create a project](screenshots/2-1-create-project.png)
+![Create a user](screenshots/2-2-create-user.png)
+![Make a pledge](screenshots/2-3-make-a-pledge.png)
+<a name="login-token-image"></a>
+![Login a user](screenshots/2-4-login-with-token.png)
+

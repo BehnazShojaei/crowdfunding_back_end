@@ -133,6 +133,8 @@ staticfiles
 __pycache__/
 *.sqlite3
 *.vscode
+.DS_Store
+
 
 
 # Spyder project settings
