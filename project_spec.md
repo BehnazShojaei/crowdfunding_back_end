@@ -30,11 +30,65 @@ Your crowdfunding project must:
   -  [x] Whether the pledge is anonymous or not
   -  [x] A comment to go along with the pledge
 -  [x] Implement suitable update/delete functionality, e.g. should a project owner be allowed to update a project description?
+
+- **Project**
+  - [X] Create, POST
+  - [X] Retrieve, GET
+  - [X] Update, PUT
+  - [ ] Destroy, DELETE - projects cannot be deleted (to avoid issues); however, the owner can close them to prevent further pledges
+- **Pledge**
+  - [X] Create, POST
+  - [X] Retrieve, GET
+  - [X] Update, PUT
+  - [X] Destroy, DELETE
+- **User**
+  - [X] Create, POST
+  - [X] Retrieve, GET
+  - [X] Update, PUT
+  - [ ] Destroy, DELETE - users cannot be deleted to maintain system consistency and avoid potential issues
+
+- **UserProfile**
+  - [X] Retrieve the list of projects and pledges for each user, GET
+
+
+
+---
+
 -  [x] Implement suitable permissions, e.g. who is allowed to delete a pledge?
+
+---
+
+**My permission plan:**
+- **Project**
+  - [X] ONLY USERS can create new projects
+  - [X] ANYONE can retrieve projects
+  - [X] ONLY OWNER/ADMIN can edit projects
+  
+- **Pledge**
+  - [X] ONLY USERS can make a pledge
+  - [X] ANYONE can get the list of pledges
+  - [X] ONLY PLEDGE OWNERS / SUPPORTER can update their pledge
+
+- **User**
+  - [X] Limit who can retrieve - user detail view is restricted to the logged-in user
+  - [X] Limit who can update
+  - [X] Limit who can delete
+
+
 -  [x] Return the relevant status codes for both successful and unsuccessful requests to the API.
--  [x] Handle failed requests gracefully (e.g. you should have a custom 404 page rather than the default error page).
+
+- [X] 200 OK: For successful GET requests.
+- [X] 201 Created: For successful POST (creation) requests.
+- [X] 404 Not Found: For requests to resources that do not exist.
+- [X] 400 Bad Request: For invalid input or data.
+- [ ] 204 No Content: For successful DELETE requests. Later it commented out. As decided not to include the DELETE
+
+
+-  [ ] Handle failed requests gracefully (e.g. you should have a custom 404 page rather than the default error page).
+ Will be addressed in front end.
 -  [x] Use Token Authentication, including an endpoint to obtain a token along with the current user's details.
--  [x] Implement responsive design.
+-  [ ] Implement responsive design.
+Will be addressed in front end.
 
 ## Additional Notes
 No additional libraries or frameworks, other than what we use in class, are allowed unless approved by the Lead Mentor.
