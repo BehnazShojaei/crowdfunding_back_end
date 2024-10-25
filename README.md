@@ -77,6 +77,7 @@ GET user profile:
 Create project, POST to projects endpoint:
 ![Create a project](screenshots/2-1-create-project.png)
 
+<a name="create-user-image"></a>
 Create user, POST to users endpoint:
 ![Create a user](screenshots/2-2-create-user.png)
 
@@ -95,9 +96,7 @@ Login, POST to api-token-auth endpoint:
 - **Endpoint:** `POST /users/`
 - **Body Data:**
     
-    ```json
-    json
-    Copy code
+    ```
     {
       "username": "new_user",
       "email": "new_user@example.com",
@@ -107,6 +106,7 @@ Login, POST to api-token-auth endpoint:
     ```
     
 - **Success Response:** `201 Created`
+[See the create user image](#create-user-image)
 
 ### 2. **Log in and Obtain Token**
 
@@ -114,9 +114,7 @@ Login, POST to api-token-auth endpoint:
 - **Endpoint:** `POST /api-token-auth/`
 - **Body Data:**
     
-    ```json
-    json
-    Copy code
+    ```
     {
       "username": "new_user",
       "password": "secure_password123"
@@ -126,17 +124,7 @@ Login, POST to api-token-auth endpoint:
     
 - **Success Response:** `200 OK`
 
-- **Example Token Response:**
-    
-    ```json
-    json
-    Copy code
-    {
-      "token": "your_auth_token_here"
-    }
-    
-    ```
-    
+
 
 ### 3. **Create a New Project**
 
@@ -144,18 +132,14 @@ Login, POST to api-token-auth endpoint:
 - **Endpoint:** `POST /projects/`
 - **Headers:**
     
-    ```makefile
-    makefile
-    Copy code
+    ```
     Authorization: Token your_auth_token_here
     
     ```
     
 - **Body Data:**
     
-    ```json
-    json
-    Copy code
+    ```
     {
       "title": "Learn Data Science",
       "description": "A project to help people access premium memberships for data science courses.",
@@ -168,15 +152,6 @@ Login, POST to api-token-auth endpoint:
 
 ### 4. **Get All Projects**
 
-- **Endpoint:** `GET /projects/`
-- **Headers (optional):**
-    
-    ```makefile
-    makefile
-    Copy code
-    Authorization: Token your_auth_token_here
-    
-    ```
-    
-- **Success Response:** `200 OK`
 - **Description:** This endpoint retrieves all projects, optionally including authorization if necessary.
+- **Endpoint:** `GET /projects/`    
+- **Success Response:** `200 OK`
