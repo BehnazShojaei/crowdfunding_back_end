@@ -7,21 +7,15 @@ from django.http import Http404
 from .models import Project, Pledge
 from .serializers import PledgeDetailSerializer, ProjectSerializer, PledgeSerializer, ProjectDetailSerializer , UserProfileSerializer
 from django.contrib.auth import get_user_model
-# I added this below and also userprofileserializer
 from rest_framework.generics import RetrieveAPIView
-
 from django.db.models import Sum
-
-
-
-
 
 
 class ProjectList(APIView):
 
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-    #get permission for only user
+# Permission allows any user (authenticated or not) to view the project list, but only authenticated users can create a new project (POST).
 
     def get(self, request):
        projects = Project.objects.all()
@@ -47,8 +41,6 @@ class ProjectList(APIView):
 #  Q: how about showing project list only by name? owner? A: it's happening already in project list. in projectdetails we will see the details.
  
 
-
-
 class ProjectDetail(APIView):
     
     
@@ -56,8 +48,9 @@ class ProjectDetail(APIView):
       permissions.IsAuthenticatedOrReadOnly,
       IsOwnerOrReadOnly
       ]
-    # project details showing to only users, can be edited, deleted by owner and admin
-    
+# Project details are visible to all users, but only the owner or admin can edit the project.
+
+
     def get_object(self, pk):
        
        try:
@@ -93,16 +86,15 @@ class ProjectDetail(APIView):
            status=status.HTTP_400_BAD_REQUEST
            )
     
+# to avoid problems the delete is not applied, instead the owner can close the project.
 
-    def delete(self, request, pk):
-        project = self.get_object(pk)
-        project.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+    # def delete(self, request, pk):
+    #     project = self.get_object(pk)
+    #     project.delete()
+    #     return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-
-
-    
+# this was my post without any logic!   
     # def post(self, request):
     #     serializer = PledgeSerializer(data=request.data)
     #     if serializer.is_valid():
@@ -113,11 +105,14 @@ class ProjectDetail(APIView):
     #         )
     #     return Response(
     #         serializer.errors,
-    #         status=status.HTTP_401_UNAUTHORIZED
+    #         status=status.HTTP_400_BAD_REQUEST
     #     )
-    # this was my post without any logic!
+  
 
-#  only user can GET the list of pledges and create a pledge, there's some logic check to see if the project goal is met project don't accept new pledges 
+# Anyone can get the list of pledges, but only authenticated users can create a pledge.
+# there's some logic check to see if the project goal is met project don't accept new pledges, if the latest supporter is exceeding the amount for the goal in the last pledge it will be prompted by the right amount, it could be addressed later in REACT but just wanted to apply complex logic in API.
+
+
 class PledgeList(APIView):
     
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -192,14 +187,7 @@ class PledgeList(APIView):
 
 
 
-#   where I am checking if the project is open or close? 
-#  add somewhere to show project is closed? later added at the begining of post
-#check if i need to have pledge detail serializer and if i need to change anything the code above is from content model relations  
-# what if one supporter amount exceed the goal,
-
-
-
-# only the pledgeowner or supporter can see the pledge details and update it.   
+# only the pledgeowner or supporter can update the pledge details.   
 class PledgeDetail(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly , IsSupporterOrReadOnly]
     
