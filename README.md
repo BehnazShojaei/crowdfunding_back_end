@@ -21,7 +21,8 @@
 - [X] A screenshot of Insomnia, demonstrating a token being returned. [See the login token image](#login-token-image)
 
       
-- [ ] Step by step instructions for how to register a new user and create a new project (i.e. endpoints and body data).
+- [X] Step by step instructions for how to register a new user and create a new project (i.e. endpoints and body data). [See the instructions here](#step-by-step-instructions)
+
 - [X] Your refined API specification and Database Schema.
 
 
@@ -51,6 +52,8 @@ You can view the Entity Relationship Diagram [here]( https://viewer.diagrams.net
 
 
 ### GET method for all endpoints
+
+<a name="get-all-projects-image"></a>
 GET all projects:
 ![GET all projects](screenshots/1-1-get-all-projects.png)
 
@@ -74,6 +77,7 @@ GET user profile:
 
 ### POST method for all endpoints
 
+<a name="create-project-image"></a>
 Create project, POST to projects endpoint:
 ![Create a project](screenshots/2-1-create-project.png)
 
@@ -89,8 +93,11 @@ Login, POST to api-token-auth endpoint:
 ![Login a user](screenshots/2-4-login-with-token.png)
 
 
+<a name="step-by-step-instructions"></a>
 
-### 1. **Register a New User**
+### Step by Step Instructions to Create a New Project: 
+
+#### 1. **Register a New User**
 
 - **Description:** This endpoint registers a new user. You need to provide a unique `username`, a valid `email`, and a `password`.
 - **Endpoint:** `POST /users/`
@@ -108,7 +115,7 @@ Login, POST to api-token-auth endpoint:
 - **Success Response:** `201 Created`
 [See the create user image](#create-user-image)
 
-### 2. **Log in and Obtain Token**
+#### 2. **Log in and Obtain Token**
 
 - **Description:** This step logs in the user and returns an authentication token. You will use this token in the header for authenticated requests.
 - **Endpoint:** `POST /api-token-auth/`
@@ -123,10 +130,11 @@ Login, POST to api-token-auth endpoint:
     ```
     
 - **Success Response:** `200 OK`
+[See the login token image](#login-token-image)
 
 
 
-### 3. **Create a New Project**
+#### 3. **Create a New Project**
 
 - **Description:** This endpoint creates a new project. The project requires a `title`, `description`, `goal` (e.g., in dollars), and a boolean `is_open` field to indicate if the project is accepting pledges.
 - **Endpoint:** `POST /projects/`
@@ -140,18 +148,26 @@ Login, POST to api-token-auth endpoint:
 - **Body Data:**
     
     ```
-    {
-      "title": "Learn Data Science",
-      "description": "A project to help people access premium memberships for data science courses.",
-      "goal": 500,
-      "is_open": true}
+   {
+	
+ "title" : "Interview Dress",
+ "description" : "Pass",
+ "goal" : 200,
+ "image" : "https://www.logo.wine/a/logo/Udemy/Udemy-Logo.wine.svg",
+	"is_open" : true
+	
+}
     
     ```
     
-- **Success Response:** `201 Created`
+- **Success Response:** `201 Created` 
+[See the create project image](#create-project-image)
 
-### 4. **Get All Projects**
+
+#### 4. **Get All Projects**
 
 - **Description:** This endpoint retrieves all projects, optionally including authorization if necessary.
 - **Endpoint:** `GET /projects/`    
 - **Success Response:** `200 OK`
+[See the get all projects image](#get-all-projects-image)
+
