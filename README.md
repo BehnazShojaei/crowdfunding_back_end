@@ -1,28 +1,29 @@
 # Crowdfunding Back End
-  Drops2Ocean  
+  
 
 ## Planning:
 ### Concept/Name
-  Help people to be employable!  
+  Help people to be employable!  / Drops2Ocean  
 
 ### Intended Audience/User Stories
   This platform is for anyone seeking support in gaining new skills and advancing their learning and networking journey. We provide assistance in securing premium memberships to online learning platforms like LinkedIn Premium and Udemy, help with attending networking events, preparing resumes, and even getting dressed for interviews! Whether you're looking to upgrade your skillset or make valuable connections, Drops2Ocean is here to support you every step of the way.
+ 
 
-### Front End Pages/Functionality
-- A page on the front end 
-    -   A list of dot-points showing functionality is available on this page  
-    -   etc  
-    -   etc  
--   A second page available on the front end  
-    -   Another list of dot-points showing functionality  
-    -   etc  
+
+- [ ] A link to the deployed project.
+- [X] A screenshot of Insomnia, demonstrating a successful GET method for any endpoint.
+[GET all project] (screenshots/1-1-GET all Projects.png)
+[GET project by id] (screenshots/1-2- GET project by id .png)
+
+
+- [ ] A screenshot of Insomnia, demonstrating a successful POST method for any endpoint.
+- [ ] A screenshot of Insomnia, demonstrating a token being returned.
+- [ ] Step by step instructions for how to register a new user and create a new project (i.e. endpoints and body data).
+- [X] Your refined API specification and Database Schema.
+
 
 ### API Spec
-  Fill out the table below to define your endpoints. An example of what this might look like is shown at the bottom of the page. 
-
-It might look messy here in the PDF, but once it's rendered it looks very neat! 
-
-It can be helpful to keep the markdown preview open in VS Code so that you can see what you're typing more easily.  
+  The table below show the available endpoints and HTTP methods for each. 
 
 
 | URL                        | HTTP Method | Purpose                               | Request Body  | Success Response Code | Authentication/Authorization               |
@@ -38,7 +39,7 @@ It can be helpful to keep the markdown preview open in VS Code so that you can s
 | /users/                   | GET         | Returns all users                     | N/A           | 200                   | N/A                                        |
 | /users/                   | POST        | Create a new user                     | User object   | 201                   | N/A                                        |
 | /users/<int:pk>/          | GET         | Get user with ID <int:pk>           | N/A           | 200                   | Must be logged in, must be the user with ID |
-| /profile/                 | GET         | Get the profile of the logged-in user | N/A           | 200                   | Must be logged in                          |
+| /profile/                 | GET         | Get the profile of the logged-in user | N/A           | 200                   | Must be logged in, must be the user with ID |
 | /api-token-auth/          | POST        | Obtain authentication token           | User credentials | 200                 | N/A                                        |
 
 
