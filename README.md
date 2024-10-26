@@ -13,7 +13,7 @@ Drops2Ocean
 
 ### Check List:
 
-- [X] A link to the deployed project. [Drops2Ocean API on heroku](#https://drops2ocean-031097d5a977.herokuapp.com/projects/)
+- [X] A link to the deployed project. [Drops2Ocean API on heroku](https://drops2ocean-031097d5a977.herokuapp.com/projects/)
 
 - [X] A screenshot of Insomnia, demonstrating a successful GET method for any endpoint.
       [screenshots - GET for all endpoints](#get-method-for-all-endpoints)
