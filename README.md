@@ -21,10 +21,16 @@ Drops2Ocean
 - [X] A screenshot of Insomnia, demonstrating a successful POST method for any endpoint.
       [screenshots - POST for all endpoints](#post-method-for-all-endpoints)
 
+- [X] A screenshot of Insomnia, demonstrating a successful PUT method for any endpoint.
+      [screenshots - PUT for available endpoints](#put-method-for-available-endpoints)
+
+
 - [X] A screenshot of Insomnia, demonstrating a token being returned. [See the login token image](#login-token-image)
 
       
 - [X] Step by step instructions for how to register a new user and create a new project (i.e. endpoints and body data). [See the instructions here](#step-by-step-instructions)
+
+- [X] Apply complex logic. [See details and images](#complex-logic)
 
 - [X] Your refined API specification and Database Schema.
 
@@ -95,6 +101,21 @@ Make a pledge, POST to pledges endpoint:
 Login, POST to api-token-auth endpoint:
 <a name="login-token-image"></a>
 ![Login a user](screenshots/2-4-login-with-token.png)
+
+[Back to checklist](#checklist)
+<a name="step-by-step-instructions"></a>
+### PUT method for available endpoints
+
+Update a project by owner, PUT to project by id endpoint:
+![Update a project by owner](screenshots/update-a-project-by-owner.png)
+
+
+Update a pledge by non-supporter, PUT to pledge by id endpoint:
+![Update a pledge by non supporter](screenshots/update-a-project-by-non-supporter.png)
+
+Update a pledge by supporter, PUT to pledge by id endpoint:
+![Update a pledge by supporter](screenshots/update-a-pledge-by-supporter.png)
+
 
 [Back to checklist](#checklist)
 <a name="step-by-step-instructions"></a>
@@ -173,5 +194,23 @@ Login, POST to api-token-auth endpoint:
 - **Endpoint:** `GET /projects/`    
 - **Success Response:** `200 OK`
 [See the get all projects image](#get-all-projects-image)
+
+[Back to checklist](#checklist)
+
+
+### Complex logic
+
+To check if a project reached its goal, the logic has been added to views project app. The logic check if the final pledge is not exceeding the remaining amount to the project goal and prompt user with the remaining amount if it is the case. Also the logic would not accept new pledges for a project that already met the goal and is closed.
+
+Test goal met/ project closed:
+![test-goal-met-logic-project-closed](screenshots/test-goal-met-logic-project-closed.png)
+
+Test goal exceed:
+[test-logic-goal-exceed](screenshots/test-logic-goal-exceed.png)
+
+
+
+
+
 
 [Back to checklist](#checklist)
