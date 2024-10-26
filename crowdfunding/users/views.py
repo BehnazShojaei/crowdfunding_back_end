@@ -8,9 +8,6 @@ from .serializers import CustomUserSerializer
 
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
-
-
-
 # from projects.permissions import IsUserOrBanished
 
 class CustomUserList(APIView):
