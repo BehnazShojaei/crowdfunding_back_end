@@ -167,6 +167,8 @@ class PledgeList(APIView):
                 project.completed = True # Close the project
                 project.save()
 
+                print(project.completed)
+
             return Response(
                 serializer.data,
                 status=status.HTTP_201_CREATED
