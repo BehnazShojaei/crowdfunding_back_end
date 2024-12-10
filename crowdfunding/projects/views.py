@@ -161,10 +161,8 @@ class PledgeList(APIView):
 
             # 7- Recalculate the total pledge amount after this pledge and close the project if necessary
             total_pledge_amount += pledge_amount
-            print("")
             if total_pledge_amount >= project.goal:
-                project.is_open = False 
-                project.completed = True # Close the project
+                project.is_open = False  # Close the project
                 project.save()
 
                 print(project.completed)
