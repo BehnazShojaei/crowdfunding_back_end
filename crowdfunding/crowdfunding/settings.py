@@ -23,11 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'fallback-secret-key')
 DEBUG = os.getenv('DJANGO_DEBUG') != 'False'
 
-DJANGO_SECRET_KEY= ehap4^a+#dhu%)id$qu-6fe#5oiqtdkst)4hc)105d(lrv5rxr
-DJANGO_DEBUG=True
-CLOUDINARY_CLOUD_NAME=dt5ewyq8s
-CLOUDINARY_API_KEY=555571931818758
-CLOUDINARY_API_SECRET=qNmSEI7XR4XiNZp2aJ0WI4Y2uOU
+# DJANGO_DEBUG=True
+# CLOUDINARY_CLOUD_NAME=dt5ewyq8s
+# CLOUDINARY_API_KEY=555571931818758
+# CLOUDINARY_API_SECRET=qNmSEI7XR4XiNZp2aJ0WI4Y2uOU
 
 
 
@@ -68,8 +67,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    'cloudinary',
-    'cloudinary_storage',
+    # 'cloudinary',
+    # 'cloudinary_storage',
 ]
 
 REST_FRAMEWORK = {
@@ -165,13 +164,13 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
-    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
-    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
-}
+# CLOUDINARY_STORAGE = {
+#     'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
+#     'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
+#     'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
+# }
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
