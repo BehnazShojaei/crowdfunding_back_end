@@ -23,6 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'fallback-secret-key')
 DEBUG = os.getenv('DJANGO_DEBUG') != 'False'
 
+DJANGO_SECRET_KEY= ehap4^a+#dhu%)id$qu-6fe#5oiqtdkst)4hc)105d(lrv5rxr
+DJANGO_DEBUG=True
+CLOUDINARY_CLOUD_NAME=dt5ewyq8s
+CLOUDINARY_API_KEY=555571931818758
+CLOUDINARY_API_SECRET=qNmSEI7XR4XiNZp2aJ0WI4Y2uOU
 
 
 
