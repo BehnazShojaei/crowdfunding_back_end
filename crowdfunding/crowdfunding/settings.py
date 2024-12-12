@@ -14,14 +14,14 @@ from pathlib import Path
 import os
 import dj_database_url
 from dotenv import load_dotenv
-load_dotenv()
-
+load_dotenv("../.env")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'fallback-secret-key')
-DEBUG = os.getenv('DJANGO_DEBUG') != 'False'
+# DEBUG = os.getenv('DJANGO_DEBUG') != 'False'
 
 
 # Define BASE_DIR
@@ -33,33 +33,18 @@ load_dotenv(dotenv_path)
 
 print("AWS_ACCESS_KEY_ID:", os.getenv('AWS_ACCESS_KEY_ID'))
 print("AWS_STORAGE_BUCKET_NAME:", os.getenv('AWS_STORAGE_BUCKET_NAME'))
-# DJANGO_DEBUG=True
-# CLOUDINARY_CLOUD_NAME=dt5ewyq8s
-# CLOUDINARY_API_KEY=555571931818758
-# CLOUDINARY_API_SECRET=qNmSEI7XR4XiNZp2aJ0WI4Y2uOU
-
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-1+558-tm+#71!o7*dhg$6f%2*x%838zajahkykpwgzu_0_a%!)'
-
-SECRET_KEY = os.environ.get(
-    'DJANGO_SECRET_KEY',
-    '<django-insecure-1+558-tm+#71!o7*dhg$6f%2*x%838zajahkykpwgzu_0_a%!)>'
-)
-
-# SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
 DEBUG = os.environ.get(
     'DJANGO_DEBUG'
 ) != 'False'
 
 # ALLOWED_HOSTS = []
 ALLOWED_HOSTS = ['*']
-CORS_ORIGIN_ALLOW_ALL = DEBUG
+CORS_ORIGIN_ALLOW_ALL = True
 
 
 # Application definition
@@ -77,8 +62,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    # 'cloudinary',
-    # 'cloudinary_storage',
     'storages',  # For S3
 
 ]
@@ -176,15 +159,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# CLOUDINARY_STORAGE = {
-#     'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
-#     'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
-#     'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
-# }
 
-# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
-MEDIA_URL = "/media/"
+# MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
 # Default primary key field type
