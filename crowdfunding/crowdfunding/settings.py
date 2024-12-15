@@ -48,7 +48,7 @@ ALLOWED_HOSTS = ['https://drops2ocean-031097d5a977.herokuapp.com',
 
 
 
-CORS_ORIGIN_ALLOW_ALL = False
+# CORS_ORIGIN_ALLOW_ALL = False
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost",  # Local development frontend
