@@ -41,10 +41,10 @@ DEBUG = os.environ.get(
 # ALLOWED_HOSTS = []
 ALLOWED_HOSTS = ['*']
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = False
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # Local development frontend
+    "http://localhost",  # Local development frontend
     "https://drops2ocean-031097d5a977.herokuapp.com",  # Heroku backend URL
     "https://drops2ocean.netlify.app",  # Production frontend on Netlify
 ]
