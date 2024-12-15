@@ -13,10 +13,11 @@ DEBUG = os.getenv('DJANGO_DEBUG') != 'False'
 
 # Allowed Hosts
 ALLOWED_HOSTS = [
-    'localhost', 
+    'localhost:5173', 
     '127.0.0.1', 
     'drops2ocean.netlify.app', 
-    'drops2ocean-031097d5a977.herokuapp.com'
+    'drops2ocean-031097d5a977.herokuapp.com',
+
 ]
 
 # Installed Apps
