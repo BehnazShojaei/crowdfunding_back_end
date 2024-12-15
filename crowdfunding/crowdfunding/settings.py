@@ -39,7 +39,14 @@ DEBUG = os.environ.get(
 ) != 'False'
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['https://drops2ocean-031097d5a977.herokuapp.com']
+ALLOWED_HOSTS = ['https://drops2ocean-031097d5a977.herokuapp.com',
+                 '127.0.0.1',
+                 'localhost',
+                 'https://drops2ocean.netlify.app'
+                 ]
+
+
+
 
 CORS_ORIGIN_ALLOW_ALL = False
 
