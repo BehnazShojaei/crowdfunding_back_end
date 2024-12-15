@@ -119,12 +119,13 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
-
 # CORS Configuration
 CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  
     "https://drops2ocean.netlify.app",
     "https://drops2ocean-031097d5a977.herokuapp.com",
 ]
+
 CORS_ALLOWED_CREDENTIALS = True
 
 # Default Primary Key Field Type
