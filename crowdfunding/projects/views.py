@@ -9,7 +9,28 @@ from .serializers import PledgeDetailSerializer, ProjectSerializer, PledgeSerial
 from django.contrib.auth import get_user_model
 from rest_framework.generics import RetrieveAPIView
 from django.db.models import Sum
+import boto3
+import botocore.exceptions
+from dotenv import load_dotenv
+load_dotenv("../.env")
 
+
+
+# def upload_to_s3(file):
+#     s3 = boto3.client('s3', region_name={settings.AWS_REGION})
+
+#     try:
+#         file_name = f"images/{file.name}"
+#         s3.upload_fileobj(file, settings.AWS_STORAGE_BUCKET_NAME, file_name)
+
+#         # Return the URL of the uploaded image
+#         image_url = f"https://{settings.AWS_STORAGE_BUCKET_NAME}.s3.{settings.AWS_REGION}.amazonaws.com/{file_name}"
+#         print(f"File uploaded to: {image_url}")
+#         return image_url
+#     except NoCredentialsError:
+#         print("AWS credentials not found.")
+#     except ClientError as e:
+#         print(f"Error uploading file to S3: {e}")
 
 class ProjectList(APIView):
 
