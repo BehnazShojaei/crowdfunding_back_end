@@ -88,10 +88,10 @@ class ProjectDetail(APIView):
     
 # to avoid problems the delete is not applied, instead the owner can close the project.
 
-    # def delete(self, request, pk):
-    #     project = self.get_object(pk)
-    #     project.delete()
-    #     return Response(status=status.HTTP_204_NO_CONTENT)
+    def delete(self, request, pk):
+        project = self.get_object(pk)
+        project.delete()
+        return Response({"detail": "Project successfully deleted"},status=status.HTTP_204_NO_CONTENT)
 
 
 # this was my post without any logic!   
@@ -209,7 +209,13 @@ class PledgeDetail(APIView):
             return Response(serializer.data)  # This should return a Response object
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)  # And this as well
     
-
+    def delete(self, request, pk):
+        pledge = self.get_object(pk)
+        pledge.delete()
+        return Response(
+             {"detail": "Pledge successfully deleted"},
+            status=status.HTTP_204_NO_CONTENT
+        )
 
     
 

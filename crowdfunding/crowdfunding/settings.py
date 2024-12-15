@@ -39,31 +39,32 @@ DEBUG = os.environ.get(
 ) != 'False'
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['https://drops2ocean-031097d5a977.herokuapp.com',
-                 '127.0.0.1',
-                 'localhost',
-                 'https://drops2ocean.netlify.app'
-                 ]
+# ALLOWED_HOSTS = ['https://drops2ocean-031097d5a977.herokuapp.com',
+#                  '127.0.0.1',
+#                  'localhost',
+#                  'https://drops2ocean.netlify.app'
+#                  ]
 
 
-
+ALLOWED_HOSTS = ['*']
+CORS_ORIGIN_ALLOW_ALL = True
 
 # CORS_ORIGIN_ALLOW_ALL = False
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost",  # Local development frontend
-    "https://drops2ocean-031097d5a977.herokuapp.com",  # Heroku backend URL
-    "https://drops2ocean.netlify.app",  # Production frontend on Netlify
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost",  # Local development frontend
+#     "https://drops2ocean-031097d5a977.herokuapp.com",  # Heroku backend URL
+#     "https://drops2ocean.netlify.app",  # Production frontend on Netlify
+# ]
 
-CORS_ALLOW_METHODS = [
-    "GET",
-    "POST",
-    "PUT",
-    "PATCH",
-    "DELETE",
-    "OPTIONS",
-]
+# CORS_ALLOW_METHODS = [
+#     "GET",
+#     "POST",
+#     "PUT",
+#     "PATCH",
+#     "DELETE",
+#     "OPTIONS",
+# ]
 
 # Application definition
 
