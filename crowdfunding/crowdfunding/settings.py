@@ -39,7 +39,7 @@ DEBUG = os.environ.get(
 ) != 'False'
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://drops2ocean-031097d5a977.herokuapp.com']
 
 CORS_ORIGIN_ALLOW_ALL = False
 
