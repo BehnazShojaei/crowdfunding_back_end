@@ -27,36 +27,41 @@ class PledgeDetailSerializer(PledgeSerializer):
        instance.amount = validated_data.get('amount', instance.amount)
        instance.comment = validated_data.get('comment', instance.comment)
        instance.anonymous = validated_data.get('anonymous', instance.anonymous)
-    #    instance.project = validated_data.get('project', instance.project)
+       instance.project = validated_data.get('project', instance.project)
     #    instance.date_created = validated_data.get('date_created', instance.date_created)
     #    instance.owner = validated_data.get('owner', instance.owner)
        instance.save()
        return instance
-#   should i add update for project as well?
 
 
 
 # The ModelSerializer class already knows how to convert a model instance into JSON!
 class ProjectSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.id')
+    total_pledged = serializers.IntegerField(read_only=True)  # Field comes from annotation
+
     # The only customisation that we need to do is to tell it which model to convert, class Meta: block is doing
     class Meta:
         model = apps.get_model('projects.Project')
-        fields = '__all__'
+        fields = ['id', 'title', 'description', 'goal', 'image', 'is_open', 'date_created', 'owner', 'total_pledged']
         # We tell our new serializer that its job is to serialize our Project model into JSON, and that it should include __all__ of the fields when it does so!
 
 class ProjectDetailSerializer(ProjectSerializer):
-   pledges = PledgeSerializer(many=True, read_only=True)
-   
-   
-   def update(self, instance, validated_data):
-       instance.title = validated_data.get('title', instance.title)
-       instance.description = validated_data.get('description', instance.description)
-       instance.goal = validated_data.get('goal', instance.goal)
-       instance.image = validated_data.get('image', instance.image)
-       instance.is_open = validated_data.get('is_open', instance.is_open)
-       instance.date_created = validated_data.get('date_created', instance.date_created)
-       instance.completed = validated_data.get('completed', instance.completed)
+    
+    pledges = PledgeSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Project
+        fields = ProjectSerializer.Meta.fields + ['pledges']
+
+    def update(self, instance, validated_data):
+        instance.title = validated_data.get('title', instance.title)
+        instance.description = validated_data.get('description', instance.description)
+        instance.goal = validated_data.get('goal', instance.goal)
+        instance.image = validated_data.get('image', instance.image)
+        instance.is_open = validated_data.get('is_open', instance.is_open)
+        instance.date_created = validated_data.get('date_created', instance.date_created)
+        instance.completed = validated_data.get('completed', instance.completed)
 
     #    in real life a user would not need to change the owner! however in insomnia I had this option activated when puplating data
     #  instance.owner = validated_data.get('owner', instance.owner)
