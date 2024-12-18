@@ -18,9 +18,9 @@ class ProjectList(APIView):
 # Permission allows any user (authenticated or not) to view the project list, but only authenticated users can create a new project (POST).
 
     def get(self, request):
-       projects = Project.objects.all()
-       serializer = ProjectSerializer(projects, many=True)
-       return Response(serializer.data)
+        projects = Project.objects.annotate(total_pledged=Sum('pledges__amount'))
+        serializer = ProjectSerializer(projects, many=True)
+        return Response(serializer.data)
    
     # only users can create new project, post permission for users only
 
@@ -64,6 +64,9 @@ class ProjectDetail(APIView):
 
     def get(self, request, pk):
         project = self.get_object(pk)
+        total_pledged = Pledge.objects.filter(project=project).aggregate(total=Sum('amount'))['total'] or 0
+        project.total_pledged = total_pledged  # Attach total_pledged dynamically
+
         serializer = ProjectDetailSerializer(project)
         return Response(serializer.data)
    
@@ -140,14 +143,19 @@ class PledgeList(APIView):
 
             # 3- Calculate the total pledge amount for the project
 
-            pledges = Pledge.objects.filter(project_id=project_id)
-            total_pledge_amount = pledges.aggregate(total=Sum('amount'))['total'] or 0
+            # pledges = Pledge.objects.filter(project_id=project_id)
+            # total_pledge_amount = pledges.aggregate(total=Sum('amount'))['total'] or 0
 
-            # 4- Calculate the remaining amount needed to reach the goal
-            remaining_amount = project.goal - total_pledge_amount
+            # # 4- Calculate the remaining amount needed to reach the goal
+            # remaining_amount = project.goal - total_pledge_amount
 
-            # 5- Check if the pledge amount exceeds the remaining amount needed to reach the goal
-            pledge_amount = serializer.validated_data['amount']  # Get the amount of the current pledge
+            # # 5- Check if the pledge amount exceeds the remaining amount needed to reach the goal
+            # pledge_amount = serializer.validated_data['amount']  # Get the amount of the current pledge
+
+
+            total_pledged = Pledge.objects.filter(project=project).aggregate(total=Sum('amount'))['total'] or 0
+            remaining_amount = project.goal - total_pledged
+            pledge_amount = serializer.validated_data['amount']
 
             if pledge_amount > remaining_amount:
                 # If the pledge exceeds the remaining amount, only allow the remaining amount to be pledged
