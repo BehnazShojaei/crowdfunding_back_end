@@ -91,7 +91,8 @@ class ProjectDetail(APIView):
     def delete(self, request, pk):
         project = self.get_object(pk)
         project.delete()
-        return Response({"detail": "Project successfully deleted"},status=status.HTTP_204_NO_CONTENT)
+        return Response({"detail": "Project successfully deleted"},status=status.HTTP_200_OK)
+
 
 
 # this was my post without any logic!   
