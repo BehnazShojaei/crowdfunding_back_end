@@ -8,7 +8,9 @@ class Project(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     goal = models.IntegerField()
-    image = models.URLField()
+    # image = models.URLField()
+    image = models.URLField(blank=True, null=True)  # Store the image URL from S3
+
     is_open = models.BooleanField()
     date_created = models.DateTimeField(auto_now_add=True)
     
