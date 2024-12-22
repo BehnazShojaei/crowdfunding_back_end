@@ -15,14 +15,14 @@ DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
-AWS_S3_REGION_NAME = os.getenv("AWS_REGION", "ap-southeast-2")  # Replace with your region
+AWS_S3_REGION_NAME = os.getenv("AWS_S3_REGION_NAME", "ap-southeast-2")  # Replace with your region
 AWS_QUERYSTRING_AUTH = False  # URLs won't include auth query strings
 AWS_S3_FILE_OVERWRITE = False  # Prevent overwriting files with the same name
 AWS_DEFAULT_ACL = None  # Use bucket-level permissions
 AWS_S3_ADDRESSING_STYLE = "virtual"
 
 # MEDIA_URL: S3 Base URL for uploaded files
-MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/"
+MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com/"
 
 # SECURITY SETTINGS
 SECRET_KEY = os.environ.get(
@@ -77,8 +77,6 @@ DATABASES = {
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# MEDIA CONFIG: All uploaded files will use S3 with MEDIA_URL
-MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/"
 
 # REST FRAMEWORK SETTINGS
 REST_FRAMEWORK = {
