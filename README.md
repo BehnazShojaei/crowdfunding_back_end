@@ -129,6 +129,7 @@ Update a pledge by supporter, PUT to pledge by id endpoint:
 - **Description:** This endpoint registers a new user. You need to provide a unique `username`, a valid `email`, and a `password`.
 - **Endpoint:** `POST /users/`
 - **Body Data:**
+
   ```
   {
     "username": "new_user",
@@ -137,6 +138,7 @@ Update a pledge by supporter, PUT to pledge by id endpoint:
   }
 
   ```
+
 - **Success Response:** `201 Created`
   [See the create user image](#create-user-image)
 
@@ -145,6 +147,7 @@ Update a pledge by supporter, PUT to pledge by id endpoint:
 - **Description:** This step logs in the user and returns an authentication token. You will use this token in the header for authenticated requests.
 - **Endpoint:** `POST /api-token-auth/`
 - **Body Data:**
+
   ```
   {
     "username": "new_user",
@@ -152,6 +155,7 @@ Update a pledge by supporter, PUT to pledge by id endpoint:
   }
 
   ```
+
 - **Success Response:** `200 OK`
   [See the login token image](#login-token-image)
 
