@@ -17,21 +17,20 @@ from django.db.models import Sum
 
 
 def upload_to_s3(file):
-    s3 = boto3.client('s3', region_name=settings.AWS_S3_REGION_NAME)
+    s3 = boto3.client('s3', region_name=settings.AWS_REGION)
 
     try:
-        file_name = f"project_images/{file.name}"
+        file_name = f"images/{file.name}"
         s3.upload_fileobj(file, settings.AWS_STORAGE_BUCKET_NAME, file_name)
 
         # Return the URL of the uploaded image
-        image_url = f"https://{settings.AWS_STORAGE_BUCKET_NAME}.s3.{settings.AWS_S3_REGION_NAME}.amazonaws.com/{file_name}"
+        image_url = f"https://{settings.AWS_STORAGE_BUCKET_NAME}.s3.{settings.AWS_REGION}.amazonaws.com/{file_name}"
         print(f"File uploaded to: {image_url}")
         return image_url
     except NoCredentialsError:
         print("AWS credentials not found.")
     except ClientError as e:
         print(f"Error uploading file to S3: {e}")
-
 
 
 class ProjectList(APIView):
@@ -47,21 +46,9 @@ class ProjectList(APIView):
    
     # only users can create new project, post permission for users only
 
-    # def post(self, request):
-    #    serializer = ProjectSerializer(data=request.data)
-    #    if serializer.is_valid():
-    #        serializer.save(owner=request.user)
-    #        return Response(
-    #            serializer.data,
-    #            status=status.HTTP_201_CREATED
-    #        )
-    #    return Response(
-    #        serializer.errors,
-    #        status=status.HTTP_400_BAD_REQUEST
-    #        )
     def post(self, request):
-        # print(f"Request Data: {request.data}")
-        # print(f"Request Files: {request.FILES}")
+        print(f"Request Data: {request.data}")
+        print(f"Request Files: {request.FILES}")
 
         # Handle file upload
         file = request.FILES.get('image')
@@ -75,22 +62,20 @@ class ProjectList(APIView):
                 return Response({"error": "Failed to upload image to S3"}, status=status.HTTP_400_BAD_REQUEST)
        
         serializer = ProjectSerializer(data=request.data)
-        # print(f"Final request data: {request.data}")
+        print(f"Final request data: {request.data}")
 
         if serializer.is_valid():
             serializer.save(owner=request.user)
-            # print("Project created successfully!")
+            print("Project created successfully!")
 
             return Response(
                 serializer.data,
                 status=status.HTTP_201_CREATED
             )
-        # print(f"Serializer Errors: {serializer.errors}")
+        print(f"Serializer Errors: {serializer.errors}")
         return Response(
             serializer.errors,
-            # status=status.HTTP_401_UNAUTHORIZED
-            status=status.HTTP_400_BAD_REQUEST  # Use 400 for validation errors
-
+            status=status.HTTP_401_UNAUTHORIZED
         )
     
 
