@@ -129,19 +129,11 @@ class ProjectDetail(APIView):
     
 # to avoid problems the delete is not applied, instead the owner can close the project.
 
-    # def delete(self, request, pk):
-    #     project = self.get_object(pk)
-    #     project.delete()
-    #     return Response({"detail": "Project successfully deleted"},status=status.HTTP_200_OK)
-
     def delete(self, request, pk):
-        
         project = self.get_object(pk)
         project.delete()
-        return Response(
-            {"message": "Project deleted successfully."},
-            status=status.HTTP_204_NO_CONTENT
-        )
+        return Response(status=status.HTTP_200_OK)
+
 
 # this was my post without any logic!   
     # def post(self, request):
