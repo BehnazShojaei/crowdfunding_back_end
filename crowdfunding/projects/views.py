@@ -1,6 +1,3 @@
-import boto3
-from botocore.exceptions import NoCredentialsError, ClientError
-from django.conf import settings
 from rest_framework.parsers import MultiPartParser, FormParser
 
 from rest_framework.views import APIView
@@ -16,21 +13,6 @@ from rest_framework.generics import RetrieveAPIView
 from django.db.models import Sum
 
 
-def upload_to_s3(file):
-    s3 = boto3.client('s3', region_name=settings.AWS_REGION)
-
-    try:
-        file_name = f"images/{file.name}"
-        s3.upload_fileobj(file, settings.AWS_STORAGE_BUCKET_NAME, file_name)
-
-        # Return the URL of the uploaded image
-        image_url = f"https://{settings.AWS_STORAGE_BUCKET_NAME}.s3.{settings.AWS_REGION}.amazonaws.com/{file_name}"
-        print(f"File uploaded to: {image_url}")
-        return image_url
-    except NoCredentialsError:
-        print("AWS credentials not found.")
-    except ClientError as e:
-        print(f"Error uploading file to S3: {e}")
 
 
 class ProjectList(APIView):
@@ -44,40 +26,16 @@ class ProjectList(APIView):
        serializer = ProjectSerializer(projects, many=True)
        return Response(serializer.data)
    
-    # only users can create new project, post permission for users only
-
+  
+    
     def post(self, request):
-        print(f"Request Data: {request.data}")
-        print(f"Request Files: {request.FILES}")
-
-        # Handle file upload
-        file = request.FILES.get('image')
-        image_url = None
-        if file:
-            # Upload the file to S3
-            image_url = upload_to_s3(file)
-            if image_url:
-                request.data['image'] = image_url  # Include the image URL in the request data
-            else:
-                return Response({"error": "Failed to upload image to S3"}, status=status.HTTP_400_BAD_REQUEST)
-       
         serializer = ProjectSerializer(data=request.data)
-        print(f"Final request data: {request.data}")
-
         if serializer.is_valid():
             serializer.save(owner=request.user)
-            print("Project created successfully!")
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-            return Response(
-                serializer.data,
-                status=status.HTTP_201_CREATED
-            )
-        print(f"Serializer Errors: {serializer.errors}")
-        return Response(
-            serializer.errors,
-            status=status.HTTP_401_UNAUTHORIZED
-        )
-    
 
 #  Q: how about showing project list only by name? owner? A: it's happening already in project list. in projectdetails we will see the details.
  
@@ -89,6 +47,8 @@ class ProjectDetail(APIView):
       permissions.IsAuthenticatedOrReadOnly,
       IsOwnerOrReadOnly
       ]
+    parser_classes = [MultiPartParser, FormParser]
+
 # Project details are visible to all users, but only the owner or admin can edit the project.
 
 
@@ -135,20 +95,6 @@ class ProjectDetail(APIView):
         return Response( {"message": "Project deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
  
 
-# this was my post without any logic!   
-    # def post(self, request):
-    #     serializer = PledgeSerializer(data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.save(supporter=request.user)
-    #         return Response(
-    #             serializer.data, 
-    #             status=status.HTTP_201_CREATED
-    #         )
-    #     return Response(
-    #         serializer.errors,
-    #         status=status.HTTP_400_BAD_REQUEST
-    #     )
-  
 
 # Anyone can get the list of pledges, but only authenticated users can create a pledge.
 # there's some logic check to see if the project goal is met project don't accept new pledges, if the latest supporter is exceeding the amount for the goal in the last pledge it will be prompted by the right amount, it could be addressed later in REACT but just wanted to apply complex logic in API.
