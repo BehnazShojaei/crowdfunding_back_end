@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 import dj_database_url
+# from .storage_backends import MediaStorage
 
 
 
@@ -11,45 +12,51 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Load environment variables
 load_dotenv(BASE_DIR / ".env") 
 
+
+
 # AWS S3 Settings for Media Uploads
-
-STORAGES = {
-    # Media storage (S3)
-    'default': {
-        'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage',
-    },
-    # Static files storage (WhiteNoise for local)
-
-
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
-
-
-
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
 AWS_S3_REGION_NAME = os.getenv("AWS_S3_REGION_NAME", "ap-southeast-2")  # Replace with your region
-AWS_REGION = AWS_S3_REGION_NAME
+
+AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com"
 
 AWS_QUERYSTRING_AUTH = False  # URLs won't include auth query strings
 AWS_S3_FILE_OVERWRITE = False  # Prevent overwriting files with the same name
 AWS_DEFAULT_ACL = None  # Use bucket-level permissions
-AWS_S3_ADDRESSING_STYLE = "virtual"
-# AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
-AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com"
-MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/"
-# DEFAULT_FILE_STORAGE = 'myapp.storage_backends.MediaStorage'
 
-# STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"
-# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
 
-# MEDIA_URL: S3 Base URL for uploaded files
-# MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com/"
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# Location prefixes in the S3 bucket
+AWS_STATIC_LOCATION = 'static'
+AWS_MEDIA_LOCATION = 'media'
+
+STORAGES = {
+    # Media storage (S3)
+    'default': {
+        'BACKEND': 'storage_backends.MediaStorage',
+    },
+    # Static files storage (WhiteNoise for local)
+
+    # "staticfiles": {
+    #     "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    # },
+    'staticfiles': {
+        'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage',  # Static Storage
+        'OPTIONS': {
+            'location': AWS_STATIC_LOCATION,
+        },
+        }
+}
+
+# URLs for media and static files
+STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_STATIC_LOCATION}/"
+MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_MEDIA_LOCATION}/"
+
+# Local development settings for static files
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]  # Local static files
+STATIC_ROOT = os.path.join(BASE_DIR, "assets")  # Directory for collectstatic
 
 
 # SECURITY SETTINGS
@@ -57,18 +64,10 @@ SECRET_KEY = os.environ.get(
     "DJANGO_SECRET_KEY",
     "django-insecure-1+558-tm+#71!o7*dhg$6f%2*x%838zajahkykpwgzu_0_a%!)"
 )
+
+
 DEBUG = os.environ.get("DJANGO_DEBUG") != "False"
-# ALLOWED_HOSTS = ["*"]  # Modify this for production
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'drops2ocean.netlify.app', 'drops2ocean-031097d5a977.herokuapp.com']
-
-# CORS SETTINGS
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS = True
-
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost",
-#     "https://your-frontend-url.com",
-# ]
 
 # APPLICATION CONFIG
 INSTALLED_APPS = [
@@ -85,7 +84,7 @@ INSTALLED_APPS = [
 
     'django.contrib.staticfiles',
     'django_extensions',
-    'storages'
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -100,36 +99,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# DATABASE CONFIG
-DATABASES = {
-    'default': dj_database_url.config(default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}", conn_max_age=500)
-}
-
-# STATIC AND MEDIA SETTINGS
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-
-# STATICFILES_STORAGE = 'myapp.storage_backends.StaticStorage'
-
-# REST FRAMEWORK SETTINGS
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ]
-}
-
-# INTERNATIONALIZATION
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
-USE_I18N = True
-USE_TZ = True
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-AUTH_USER_MODEL = 'users.CustomUser'
-ROOT_URLCONF = 'crowdfunding.urls'
-WSGI_APPLICATION = 'crowdfunding.wsgi.application'
 
 TEMPLATES = [
     {
@@ -148,3 +117,87 @@ TEMPLATES = [
         },
     },
 ]
+
+# DATABASE CONFIG
+DATABASES = {
+    'default': dj_database_url.config(default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}", conn_max_age=500)
+}
+
+
+# REST FRAMEWORK SETTINGS
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
+
+
+# INTERNATIONALIZATION
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_TZ = True
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'users.CustomUser'
+ROOT_URLCONF = 'crowdfunding.urls'
+WSGI_APPLICATION = 'crowdfunding.wsgi.application'
+
+
+
+# CORS SETTINGS
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost",
+    "https://your-frontend-url.com",
+]
+
+
+# Optional Logging for Debugging S3 Issues
+if DEBUG:
+    import logging
+    logging.basicConfig(level=logging.INFO)
+
+
+# STATIC AND MEDIA SETTINGS
+# STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# AWS_LOCATION = 'static'
+
+
+# STATICFILES_STORAGE = 'myapp.storage_backends.StaticStorage'
+# MEDIA_URL = '/media/'
+# STATIC_URL = '/static/'
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+# STATIC_ROOT = os.path.join(BASE_DIR, "assets")
+# STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage" 
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# AWS_REGION = AWS_S3_REGION_NAME
+
+# AWS_S3_ADDRESSING_STYLE = "virtual"
+
+
+# AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+
+# MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/"
+# DEFAULT_FILE_STORAGE = 'myapp.storage_backends.MediaStorage'
+
+# STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
+
+# MEDIA_URL: S3 Base URL for uploaded files
+# MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com/"
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
+
+
+
+
+
+
+
+
