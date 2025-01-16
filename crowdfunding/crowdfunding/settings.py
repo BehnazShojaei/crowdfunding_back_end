@@ -35,20 +35,21 @@ AWS_MEDIA_LOCATION = 'media'
 STORAGES = {
     # Media storage (S3)
     'default': {
-        'BACKEND': 'storage_backends.MediaStorage',
+        'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage',
     },
     # Static files storage (WhiteNoise for local)
 
-    # "staticfiles": {
-    #     "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    # },
-    'staticfiles': {
-        'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage',  # Static Storage
-        'OPTIONS': {
-            'location': AWS_STATIC_LOCATION,
-        },
-        }
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
 }
+    # 'staticfiles': {
+    #     'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage',  # Static Storage
+    #     'OPTIONS': {
+    #         'location': AWS_STATIC_LOCATION,
+    #     },
+        # }
+
 
 # URLs for media and static files
 STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_STATIC_LOCATION}/"
@@ -147,11 +148,13 @@ WSGI_APPLICATION = 'crowdfunding.wsgi.application'
 
 
 # CORS SETTINGS
-
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost",
-    "https://your-frontend-url.com",
-]
+# CORS_ALLOWED_ORIGINS = True
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:5174",
+#     "https://your-frontend-url.com",
+#     "http://127.0.0.1:8000"
+    
+# 
 
 
 # Optional Logging for Debugging S3 Issues
