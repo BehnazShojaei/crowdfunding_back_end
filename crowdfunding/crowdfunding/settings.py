@@ -149,12 +149,12 @@ WSGI_APPLICATION = 'crowdfunding.wsgi.application'
 
 # CORS SETTINGS
 # CORS_ALLOWED_ORIGINS = True
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:5174",
-#     "https://your-frontend-url.com",
-#     "http://127.0.0.1:8000"
-    
-# 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5174",
+    "https://drops2ocean.netlify.app",
+    "http://127.0.0.1:8000"
+]
+
 
 
 # Optional Logging for Debugging S3 Issues
