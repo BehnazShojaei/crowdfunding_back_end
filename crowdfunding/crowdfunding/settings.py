@@ -36,8 +36,7 @@ ALLOWED_HOSTS = ['*']
 #     "http://127.0.0.1:8000"
 # ]
 
-CORS_ALLOW_ALL_ORIGINS = True
-
+CORS_ALLOWED_ORIGINS  = True
 
 
 # Application definition
@@ -75,6 +74,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
 
 ROOT_URLCONF = 'crowdfunding.urls'
 
