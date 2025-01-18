@@ -42,8 +42,8 @@ class ProjectSerializer(serializers.ModelSerializer):
     # The only customisation that we need to do is to tell it which model to convert, class Meta: block is doing
     class Meta:
         model = apps.get_model('projects.Project')
-        # fields = '__all__'
-        fields = ['title', 'description', 'goal', 'image', 'is_open', 'date_created', 'owner','completed']
+        fields = '__all__'
+        # fields = ['title', 'description', 'goal', 'image', 'is_open', 'date_created', 'owner','completed']
 
 
     
@@ -59,6 +59,8 @@ class ProjectDetailSerializer(ProjectSerializer):
        instance.description = validated_data.get('description', instance.description)
        instance.goal = validated_data.get('goal', instance.goal)
        instance.image = validated_data.get('image', instance.image)
+       instance.image_b64 = validated_data.get('image', instance.image_b64)
+
        instance.is_open = validated_data.get('is_open', instance.is_open)
        instance.date_created = validated_data.get('date_created', instance.date_created)
        instance.completed = validated_data.get('completed', instance.completed)
