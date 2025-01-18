@@ -8,7 +8,7 @@ class Project(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     goal = models.IntegerField()
-    image = models.ImageField(upload_to="project_images/", blank=True, null=True)  
+    # image = models.ImageField(upload_to="project_images/", blank=True, null=True)  
     # image = models.ImageField(storage=S3Boto3Storage(), blank=True, null=True)
     image_b64 = models.TextField(blank=True, null=True)
     is_open = models.BooleanField()
