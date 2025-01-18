@@ -43,8 +43,6 @@ class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = apps.get_model('projects.Project')
         fields = '__all__'
-        # fields = ['title', 'description', 'goal', 'image', 'is_open', 'date_created', 'owner','completed']
-
 
     
 
