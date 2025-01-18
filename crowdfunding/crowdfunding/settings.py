@@ -30,11 +30,14 @@ DEBUG = os.environ.get(
 
 ALLOWED_HOSTS = ['*']
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "https://drops2ocean.netlify.app",
-    "http://127.0.0.1:8000"
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:5173",
+#     "https://drops2ocean.netlify.app",
+#     "http://127.0.0.1:8000"
+# ]
+
+CORS_ALLOW_ALL_ORIGINS = True
+
 
 
 # Application definition
