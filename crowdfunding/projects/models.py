@@ -10,7 +10,7 @@ class Project(models.Model):
     goal = models.IntegerField()
     # image = models.ImageField(upload_to="project_images/", blank=True, null=True)  
     # image = models.ImageField(storage=S3Boto3Storage(), blank=True, null=True)
-    image_b64 = models.TextField(blank=True, null=True)
+    image= models.TextField(blank=True, null=True)
     is_open = models.BooleanField()
     date_created = models.DateTimeField(auto_now_add=True)
     
