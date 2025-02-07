@@ -27,9 +27,7 @@ class PledgeDetailSerializer(PledgeSerializer):
        instance.amount = validated_data.get('amount', instance.amount)
        instance.comment = validated_data.get('comment', instance.comment)
        instance.anonymous = validated_data.get('anonymous', instance.anonymous)
-    #    instance.project = validated_data.get('project', instance.project)
-    #    instance.date_created = validated_data.get('date_created', instance.date_created)
-    #    instance.owner = validated_data.get('owner', instance.owner)
+
        instance.save()
        return instance
 #   should i add update for project as well?
