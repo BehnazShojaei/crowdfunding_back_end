@@ -8,8 +8,8 @@ class Project(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     goal = models.IntegerField()
-    
-    image_64= models.TextField(blank=True, null=True)
+    # image = models.ImageField(blank= True, null = True)
+    image_64 = models.TextField(blank=True, null=True)
 
     is_open = models.BooleanField()
     date_created = models.DateTimeField(auto_now_add=True)

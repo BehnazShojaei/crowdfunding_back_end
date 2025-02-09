@@ -54,9 +54,8 @@ class ProjectDetailSerializer(ProjectSerializer):
        instance.title = validated_data.get('title', instance.title)
        instance.description = validated_data.get('description', instance.description)
        instance.goal = validated_data.get('goal', instance.goal)
-       instance.image = validated_data.get('image', instance.image)
+    #    instance.image = validated_data.get('image', instance.image)
        instance.image_b64 = validated_data.get('image', instance.image_b64)
-
        instance.is_open = validated_data.get('is_open', instance.is_open)
        instance.date_created = validated_data.get('date_created', instance.date_created)
        instance.completed = validated_data.get('completed', instance.completed)
