@@ -3,7 +3,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
-from .permissions import IsOwnerOrReadOnly, IsSupporterOrReadOnly
+from .permissions import IsOwnerOrReadOnly, IsSupporterOrReadOnly, IsSuperUser
 
 from django.http import Http404
 from .models import Project, Pledge
@@ -45,8 +45,7 @@ class ProjectDetail(APIView):
     
     permission_classes = [
       permissions.IsAuthenticatedOrReadOnly,
-      IsOwnerOrReadOnly
-      ]
+      IsOwnerOrReadOnly | IsSuperUser]
     # parser_classes = [MultiPartParser, FormParser]
 
 # Project details are visible to all users, but only the owner or admin can edit the project.
