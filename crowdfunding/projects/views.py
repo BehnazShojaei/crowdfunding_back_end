@@ -18,7 +18,7 @@ from django.db.models import Sum
 class ProjectList(APIView):
 
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    parser_classes = [MultiPartParser, FormParser]
+    # parser_classes = [MultiPartParser, FormParser]
 # Permission allows any user (authenticated or not) to view the project list, but only authenticated users can create a new project (POST).
 
     def get(self, request):
@@ -47,7 +47,7 @@ class ProjectDetail(APIView):
       permissions.IsAuthenticatedOrReadOnly,
       IsOwnerOrReadOnly
       ]
-    parser_classes = [MultiPartParser, FormParser]
+    # parser_classes = [MultiPartParser, FormParser]
 
 # Project details are visible to all users, but only the owner or admin can edit the project.
 
