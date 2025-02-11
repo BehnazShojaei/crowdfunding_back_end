@@ -9,7 +9,7 @@ class Project(models.Model):
     description = models.TextField()
     goal = models.IntegerField()
     
-    image= models.TextField(blank=True, null=True)
+    image = models.TextField(blank=True, null=True)
 
     is_open = models.BooleanField()
     date_created = models.DateTimeField(auto_now_add=True)
